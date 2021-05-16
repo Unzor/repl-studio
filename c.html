@@ -75,8 +75,7 @@ Run
   
   <input type="file" id="fileInput" style="display:none;">
 
-<div id="editor">
-#include&lt;stdio.h&gt;
+<div id="editor">#include&lt;stdio.h&gt;
 
 int main()
 {
@@ -90,7 +89,7 @@ int main()
  var num=0;
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/objectivec");
+    editor.session.setMode("ace/mode/python");
   
   document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
 
@@ -121,11 +120,15 @@ var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"});
   
 
   function runCode(element){
-    var frame=window.open("run.html?code=" + editor.getValue() + "&filename=main.c&lang=c")
+    var frame=document.createElement('iframe');
+    frame.id="runcode";
+    frame.style="position:fixed; top:60%; left:0; bottom:0; right:0; width:100%; height:60%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999; background: white;";
+frame.src=encodeURI('run.html?code=' + editor.getValue() + "&filename=main.c&lang=c");
+    document.body.appendChild(frame);
     element.textContent="Close";
     element.onclick=function(){
           element.textContent="Run";
-      frame.close();
+      frame.remove();
           element.onclick=function(){runCode(element)};
     }
   }
