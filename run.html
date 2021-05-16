@@ -42,7 +42,7 @@ elem.innerText=stuff;
           var thing2=document.getElementById('stuf');
 
 
-   repljs.setCode(new URLSearchParams(location.search).get('code'));
+   repljs.setCode(decodeURI(new URLSearchParams(location.search).get('code')));
 
    repljs.setFileName(new URLSearchParams(location.search).get('filename'));
  
