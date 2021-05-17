@@ -1,5 +1,5 @@
 # repl-studio
-An online IDE made with REPLjs.
+An online IDE made with REPLjs. (for Python Turtle, it is made with [Skulpt](https://skulpt.org).)
 
 # Building on local machine
 ```
