@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>REPL Studio Editor</title>
+  <script src="save.js"></script>
+  <script src="turtle-graphics-skulpt.js" type="text/javascript"></script> 
+
+<style type="text/css" media="screen">
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+  
+    #editor { 
+        position: absolute;
+        top: 7%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+  
+a {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #141414; 
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: absolute;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+   top: 1%;    
+   right: 0;
+        bottom: 0;
+        left: 0;
+}
+
+  .save_button {
+  background-color: #141414; 
+  color: white; 
+}
+
+.save_button:hover {
+  background-color: #303030;
+  color: white;
+}
+  
+  .logo {
+    color: orange;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  iframe {
+    background-color: black;
+color: black;
+  }
+</style>
+</head>
+<body style="background: #141414;">
+  <div class="topnav">
+  <a class="logo">
+REPL Studio Editor
+  </a>
+<a class="save_button" onclick="save()">
+  Save
+  </a>
+  <a class="save_button" onclick="document.querySelector('input').click();">
+Load
+  </a>
+      <a class="save_button" id="run_btn">
+Run
+    </a>
+    
+        <a class="save_button" onclick="switchTheme(this)">
+              ‏‏‎  ‏‏‎   Toggle Light Mode
+    </a>
+</div>
+  
+  <input type="file" id="fileInput" style="display:none;">
+
+<div id="editor"> # No "import turtle" needed!
+ 
+t = turtle.Turtle()
+  
+t.hideturtle()
+  
+# taking input for the side of the square
+s = "50"
+  
+# taking the input for the color
+col = "green"
+  
+# set the fillcolor
+t.fillcolor(col)
+  
+# start the filling color
+t.begin_fill()
+  
+# drawing the square of side s
+for _ in range(1):
+  t.circle(s)
+  
+# ending the filling of the color
+t.end_fill()
+
+t.color('black')
+
+t.up()
+
+t.goto(0,-50)
+
+t.write("Hello World 🌏! 😃", None, "center", "16pt bold")  </div>
+  
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+ var num=0;
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/python");
+  
+  document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+
+  function switchTheme(elem){if (num === 0){num=1;     editor.setTheme("ace/theme/crimson_editor"); elem.innerText="‏‏‎  ‏‏‎   Toggle Dark Mode";
+} else {num=0;     editor.setTheme("ace/theme/twilight"); elem.innerText="‏‏‎  ‏‏‎   Toggle Light Mode";
+}}
+
+function handleFileSelect(event){
+  const reader = new FileReader()
+  reader.onload = handleFileLoad;
+  reader.readAsText(event.target.files[0])
+}
+
+function handleFileLoad(event){
+  console.log(event);
+editor.setValue(event.target.result);
+}
+  
+  
+  function save(){
+    var savePrompt=prompt("File name (do not add .py)");
+    if (savePrompt !== null){
+var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"});
+ saveAs(blob, savePrompt + '.py');
+  }
+  }
+  
+  
+
+  function runCode(element){
+  function outf(text) { 
+alert(text);
+} 
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+            throw "File not found: '" + x + "'";
+    return Sk.builtinFiles["files"][x];
+}
+
+// Here's everything you need to run a python program in skulpt
+// grab the code from your textarea
+// get a reference to your pre element for output
+// configure the output function
+// call Sk.importMainWithBody()
+    
+    var newWin;
+function runit() { 
+  newWin=window.open("", "myWindow", "width=418,height=326");
+  newWin.document.write(`<pre id="output" ></pre> 
+<!-- If you want turtle graphics include a canvas -->
+<div id="mycanvas" oncontextmenu="e.preventDefault()"></div> `);
+   var prog = `import turtle
+   
+` + editor.getValue();
+  console.log(prog);
+   var mypre = newWin.document.getElementById("output"); 
+   mypre.innerHTML = ''; 
+   Sk.pre = "output";
+   Sk.configure({output:outf, read:builtinRead}); 
+   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = newWin.document.querySelector('#mycanvas');
+   var myPromise = Sk.misceval.asyncToPromise(function() {
+       return Sk.importMainWithBody("<stdin>", false, prog, true);
+   });
+   myPromise.then(function(mod) {
+       console.log('success');
+   },
+       function(err) {
+       console.log(err.toString());
+   });
+} 
+    
+    runit();
+    element.textContent="Close";
+    element.onclick=function(){
+          element.textContent="Run";
+newWin.close();
+      element.onclick=function(){runCode(element)};
+    }
+  }
+  
+  document.querySelector('#run_btn').onclick=function(){runCode(document.querySelector('#run_btn'));};
+</script>
+</body>
+</html>
