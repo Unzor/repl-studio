@@ -1,15 +1,14 @@
 <script>
-  var hData=new URLSearchParams(location.search).get('data');
+var hData=new URLSearchParams(location.search).get('data');
 if (hData){
 var decHex=hData.split(/(\w\w)/g)
    .filter(p => !!p)
    .map(c => String.fromCharCode(parseInt(c, 16)))
    .join("");
-var actualCode=decHex.split('  [!]LANG:').shift();
-  var enc_code=actualCode
+var actualCode=decHex.split(' [!]LANG:').shift().split("")
      .map(c => c.charCodeAt(0).toString(16).padStart(2, "0"))
      .join("");
 var hex_lang=decHex.split(' [!]LANG:').pop();
-location.href=hex_lang + ".html?data_code=" + enc_code;
-}
+location.href=hex_lang + ".html?data_code=" + actualCode;
+} 
 </script>
