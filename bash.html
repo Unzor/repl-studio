@@ -3,8 +3,8 @@
 <head>
 <title>REPL Studio Editor</title>
   <script src="save.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<style type="text/css" media="screen">
+<script src="publish.js"></script>
+  <style type="text/css" media="screen">
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
   
@@ -72,6 +72,7 @@ Run
         <a class="save_button" onclick="switchTheme(this)">
               ‏‏‎  ‏‏‎   Toggle Light Mode
     </a>
+    <a style="save_button" onclick="publish()">Publish</a>
 </div>
   
   <input type="file" id="fileInput" style="display:none;">
@@ -130,6 +131,15 @@ frame.src='run.html?code=' + editor.getValue() + "&filename=main.sh&lang=bash"
   
   document.querySelector('#run_btn').onclick=function(){runCode(document.querySelector('#run_btn'));};
 </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+var data_code=new URLSearchParams(location.search).get('data_code');
+if(data_code){
+var decHex=data_code.split(/(\w\w)/g)
+   .filter(p => !!p)
+   .map(c => String.fromCharCode(parseInt(c, 16)))
+   .join("").split('  [!]LANG:').shift();
+editor.setValue(decHex);
+}
+</script>
   </body>
 </html>
