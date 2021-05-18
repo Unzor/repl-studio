@@ -1,3 +1,4 @@
+function copyToClip(textcopyer){var elem=document.createElement('input'); elem.value=textcopyer; document.body.appendChild(elem); elem.select(); document.execCommand('copy'); elem.remove(); alert('Copied URL to clipboard!');}
 function publish(){
 var lang=location.pathname.split('/').pop().split('.html').shift();var fullEnc=editor.getValue() + "  [!]LANG:" + lang; var hex=fullEnc.split("")
      .map(c => c.charCodeAt(0).toString(16).padStart(2, "0"))
@@ -7,8 +8,9 @@ var lang=location.pathname.split('/').pop().split('.html').shift();var fullEnc=e
 Toastify({
 
 text: 'Site is published at unzor.github.io/fork.html?data_code=' + hex,
-close: true, destination: 'fork.html?data=' + hex,
-duration: 3000
+close: true,
+duration: 3000,
+     onclick: function(){copyToClip('https://unzor.github.io/repl-studio/fork.html?data=' + hex)}
 
 }).showToast();
 }
