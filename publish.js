@@ -10,7 +10,7 @@ Toastify({
 text: 'Site is published at unzor.github.io/fork.html?data_code=' + hex,
 close: true,
 duration: 3000,
-     onclick: function(){copyToClip('https://unzor.github.io/repl-studio/fork.html?data=' + hex)}
+     onClick: function(){copyToClip('https://unzor.github.io/repl-studio/fork.html?data=' + hex)}
 
 }).showToast();
 }
