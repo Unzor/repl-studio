@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <title>REPL Studio Editor</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script src="save.js"></script>
 <style type="text/css" media="screen">
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
@@ -135,5 +136,6 @@ frame.src=encodeURI('run.html?code=' + editor.getValue() + "&filename=main.c&lan
   
   document.querySelector('#run_btn').onclick=function(){runCode(document.querySelector('#run_btn'));};
 </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>
