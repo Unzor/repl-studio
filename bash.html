@@ -3,6 +3,7 @@
 <head>
 <title>REPL Studio Editor</title>
   <script src="save.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <style type="text/css" media="screen">
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
@@ -129,5 +130,6 @@ frame.src='run.html?code=' + editor.getValue() + "&filename=main.sh&lang=bash"
   
   document.querySelector('#run_btn').onclick=function(){runCode(document.querySelector('#run_btn'));};
 </script>
-</body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  </body>
 </html>
