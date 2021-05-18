@@ -1,6 +1,6 @@
 <script>
   var hData=new URLSearchParams(location.search).get('data');
-if (hdata){
+if (hData){
 var decHex=hData.split(/(\w\w)/g)
    .filter(p => !!p)
    .map(c => String.fromCharCode(parseInt(c, 16)))
