@@ -6,7 +6,7 @@ var decHex=hData.split(/(\w\w)/g)
    .map(c => String.fromCharCode(parseInt(c, 16)))
    .join("");
 var actualCode=decHex.split('  [!]LANG:').shift();
-  var enc_code=actualCode.split('/').pop().split('.html').shift();var fullEnc=editor.getValue() + "  [!]LANG:" + lang; var hex=fullEnc.split("")
+  var enc_code=actualCode.split('/').pop().split('.html').shift();
      .map(c => c.charCodeAt(0).toString(16).padStart(2, "0"))
      .join("")
 var hex_lang=decHex.split(' [!]LANG:').pop();
