@@ -5,8 +5,8 @@ var decHex=hData.split(/(\w\w)/g)
    .filter(p => !!p)
    .map(c => String.fromCharCode(parseInt(c, 16)))
    .join("");
-var actualCode=decHex.splitOnLast(' [!]LANG:').shift();
-var hex_lang=decHex.splitOnLast(' [!]LANG:').pop();
+var actualCode=decHex..split('  [!]LANG:').shift();
+var hex_lang=decHex.split(' [!]LANG:').pop();
 location.href=hex_lang + ".html?data_code=" + actualCode;
 }
 </script>
