@@ -59,7 +59,7 @@ var wait = document.getElementById("result");
       txt.innerHTML="";
       
 var resElement=document.createElement('code');
-  resElement.innerText=JSON.parse(request.response).result;
+  resElement.innerText=request.response;
   document.querySelector('#result').appendChild(resElement);
     }
   };
