@@ -9,10 +9,10 @@ var lang=location.pathname.split('/').pop().split('.html').shift();var fullEnc=e
  
 Toastify({
 
-text: 'Site is published at unzor.github.io/fork.html?data_code=' + hex,
+text: 'Site is published at ' + location.hostname + '/fork.html?data_code=' + hex,
 close: true,
 duration: 3000,
-     onClick: function(){var elem=document.createElement('input'); elem.value='https://unzor.github.io/repl-studio/fork.html?data=' + hex; document.body.appendChild(elem); elem.select(); document.execCommand('copy'); elem.remove(); alert('Copied URL to clipboard!');}
+     onClick: function(){var elem=document.createElement('input'); elem.value=location.hostname + '/fork.html?data=' + hex; document.body.appendChild(elem); elem.select(); document.execCommand('copy'); elem.remove(); alert('Copied URL to clipboard!');}
 
 }).showToast();
 }

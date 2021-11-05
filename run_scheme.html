@@ -1,8 +1,8 @@
 <meta name="theme-color" content="#000000">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/biwascheme/biwascheme/release/biwascheme-0.6.1-min.js"></script>
+
 <body style="background-color: black;">
   
-<div id="result" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999; color: white;">
+  <div id="result" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999; color: white;">
   <code id="stuf">
   Running
   </code><code id="running-text">
@@ -14,8 +14,7 @@
     ‏‏‎
   </div>
   </div>
-
-<script type="text/javascript">
+  <script>
    var dots = window.setInterval( function() {
     var wait = document.getElementById("running-text");
     if ( wait.innerHTML.length > 2 ) 
@@ -39,8 +38,19 @@ elem.innerText=stuff;
     var txt=document.getElementById('running-text');
       var thing1=document.getElementById('space');
           var thing2=document.getElementById('stuf');
-          
-          var biwa = new BiwaScheme.Interpreter(function(result){
+
+      var request = new XMLHttpRequest();
+      request.open("POST", "https://apirepl-studio.seven7four4.repl.co/interpretScheme");
+
+      request.setRequestHeader('Content-type', 'application/json');
+
+
+      request.send(JSON.stringify({
+code: decodeURI(new URLSearchParams(location.search).get('code'))
+      }));
+
+  request.onreadystatechange = function() {
+    if (request.readyState === 4) {
 var wait = document.getElementById("result");
       clearInterval(dots);
 
@@ -49,20 +59,11 @@ var wait = document.getElementById("result");
       txt.innerHTML="";
       
 var resElement=document.createElement('code');
-  resElement.innerText=result;
+  resElement.innerText=JSON.parse(request.response).result;
   document.querySelector('#result').appendChild(resElement);
-          });
-
-biwa.evaluate(new URLSearchParams(location.search).get('code'), function(result) {
-var wait = document.getElementById("result");
-      clearInterval(dots);
-
-          thing1.remove();
-    thing2.remove();
-      txt.innerHTML="";
-      
-var resElement=document.createElement('code');
-  resElement.innerText=result;
-  document.querySelector('#result').appendChild(resElement);
-  });
-</script>
+    }
+  };
+  
+  </script>
+  </body>
+  

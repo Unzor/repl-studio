@@ -1,9 +1,8 @@
-
 <meta name="theme-color" content="#000000">
 
 <body style="background-color: black;">
   
-<script src="repl.min.js"></script>
+<script src="typeterpret.js"></script>
 <div id="result" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999; color: white;">
   <code id="stuf">
   Running
@@ -17,7 +16,7 @@
   </div>
   </div>
   <script>
-    var dots = window.setInterval( function() {
+   var dots = window.setInterval( function() {
     var wait = document.getElementById("running-text");
     if ( wait.innerHTML.length > 2 ) 
         wait.innerHTML = "";
@@ -37,20 +36,12 @@ elem.innerText=stuff;
       
     }
     
-    var repljs=new REPLjs();
-  var txt=document.getElementById('running-text');
+    var txt=document.getElementById('running-text');
       var thing1=document.getElementById('space');
           var thing2=document.getElementById('stuf');
-
-
-   repljs.setCode(decodeURI(new URLSearchParams(location.search).get('code')));
-
-   repljs.setFileName(new URLSearchParams(location.search).get('filename'));
- 
-    repljs.setLanguage(new URLSearchParams(location.search).get('lang'));
-
- repljs.onCallback=function(output){
-          var wait = document.getElementById("result");
+          
+  TypeTerpret.eval(decodeURI(new URLSearchParams(location.search).get('code')), function(to_print){
+     var wait = document.getElementById("result");
       clearInterval(dots);
 
           thing1.remove();
@@ -58,11 +49,8 @@ elem.innerText=stuff;
       txt.innerHTML="";
       
 var resElement=document.createElement('code');
-  resElement.innerText=output;
+  resElement.innerText=to_print;
   document.querySelector('#result').appendChild(resElement);
-}
-    
-repljs.run();
-  
+  });
   </script>
-  </body>
+  </body>      
