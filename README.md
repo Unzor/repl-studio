@@ -4,10 +4,7 @@ An online IDE made with REPLjs. (also made with [Skulpt](https://skulpt.org), [A
 # Building on local machine
 ```
 git clone https://github.com/Unzor/repl-studio/
-git clone https://github.com/Unzor/repl-studio-api/
-cd repl-studio-api
-npm init -y
-npm install
-node index.js
+cd repl-studio
+python3 -m http.server 8080
 google-chrome http://localhost:8000
 ```
