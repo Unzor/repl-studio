@@ -109,10 +109,10 @@ editor.setValue(event.target.result);
   
   
   function save(){
-    var savePrompt=prompt("File name (do not add .r)");
+    var savePrompt=prompt("File name");
     if (savePrompt !== null){
 var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"});
- saveAs(blob, savePrompt + '.r');
+ saveAs(blob, savePrompt);
   }
   }
   
